@@ -1,0 +1,18 @@
+model:
+  base_model: sd-turbo
+  text_embedding_path: models/text_embeddings/fixed_prompt_sd_turbo.pt
+  fixed_prompt: a person wearing the fixed product
+  gray_value: 0.5
+  guidance_scale: 1.0
+
+device: cuda
+dtype: fp16
+batch_size: 1
+width: 384
+height: 512
+steps: 1
+enable_xformers: true
+use_sdpa: true
+enable_vae_slicing: true
+enable_vae_tiling: false
+enable_torch_compile: false

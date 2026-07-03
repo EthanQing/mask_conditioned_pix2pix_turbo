@@ -1,0 +1,64 @@
+model:
+  base_model: sd-turbo
+  resolution:
+    width: 384
+    height: 512
+  fixed_prompt: undress, nsfw, nude, naked, pussy, vagina, penis
+  text_embedding_path: models/text_embeddings/fixed_prompt_sd_turbo.pt
+  train_full_unet: false
+  train_conv_in: true
+  lora_rank: 8
+  lora_alpha: 8
+  train_vae_skip: false
+  gray_value: 0.5
+  guidance_scale: 1.0
+
+data:
+  root: dataset
+  metadata: dataset/metadata.csv
+  num_workers: 0
+  horizontal_flip_prob: 0.0
+  color_jitter:
+    enabled: false
+    brightness: 0.02
+    contrast: 0.02
+    saturation: 0.02
+    hue: 0.0
+
+training:
+  output_dir: checkpoints
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-5
+  max_steps: 50000
+  mixed_precision: fp16
+  gradient_checkpointing: true
+  enable_xformers: true
+  use_sdpa: true
+  enable_vae_slicing: true
+  enable_vae_tiling: false
+  optimizer: adamw
+  use_8bit_adam: true
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  seed: 42
+  resume_from: null
+  keep_last_checkpoints: 3
+
+loss:
+  inside_weight: 1.0
+  outside_weight: 1.0
+  lpips_weight: 0.0
+  boundary_weight: 0.5
+  boundary_radius: 8
+  lpips_crop_margin_ratio: 0.25
+  lpips_resize: 224
+  use_sobel_boundary: false
+
+logging:
+  tracker: tensorboard
+  project_name: mask-conditioned-pix2pix-turbo
+  save_every_steps: 2000
+  validate_every_steps: 1000
+  image_log_every_steps: 1000
+  visualization_dir: outputs/visualizations

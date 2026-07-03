@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+dataset/
+extracted_frames/
+extracted_frames_2/
+original_data/
+dataset_prepared/
+checkpoints/
+outputs/
+hf_cache/
+sd-turbo/
+pretrained/
+models/text_embeddings/
+*.ckpt
+*.safetensors
+wandb/
