@@ -90,7 +90,7 @@ def main() -> None:
         device,
         dtype,
         base_model=cfg["model"]["base_model"],
-        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+        prompt=cfg["model"].get("fixed_prompt", "undress, nsfw, nude, naked"),
     )
     run_validation(model, loader, text_embedding, device, Path(cfg["logging"]["visualization_dir"]), args.step, max_batches=args.max_batches)
     print(f"Saved validation grids to {cfg['logging']['visualization_dir']}")

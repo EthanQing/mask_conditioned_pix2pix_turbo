@@ -15,7 +15,7 @@ from models.text_embedding import save_text_embedding
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-model", default="stabilityai/sd-turbo")
-    parser.add_argument("--prompt", default="a person wearing the fixed product")
+    parser.add_argument("--prompt", default="undress, nsfw, nude, naked")
     parser.add_argument("--output", type=Path, default=Path("models/text_embeddings/fixed_prompt_sd_turbo.pt"))
     parser.add_argument("--hf-token", default=None)
     args = parser.parse_args()

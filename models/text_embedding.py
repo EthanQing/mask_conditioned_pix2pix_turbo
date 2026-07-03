@@ -25,7 +25,7 @@ def load_text_embedding(
     device: torch.device | str,
     dtype: torch.dtype,
     base_model: str = "stabilityai/sd-turbo",
-    prompt: str = "a person wearing the fixed product",
+    prompt: str = "undress, nsfw, nude, naked",
 ) -> torch.Tensor:
     path = Path(path)
     if not path.exists():

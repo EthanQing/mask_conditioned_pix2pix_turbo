@@ -37,7 +37,7 @@ def main() -> None:
         device,
         dtype,
         base_model=cfg["model"]["base_model"],
-        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+        prompt=cfg["model"].get("fixed_prompt", "undress, nsfw, nude, naked"),
     )
     source = torch.rand(1, 3, cfg["height"], cfg["width"], device=device, dtype=dtype)
     mask = torch.zeros(1, 1, cfg["height"], cfg["width"], device=device, dtype=dtype)

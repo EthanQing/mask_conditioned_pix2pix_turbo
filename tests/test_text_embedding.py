@@ -15,7 +15,7 @@ def test_missing_text_embedding_error_includes_export_command(tmp_path) -> None:
             torch.device("cpu"),
             torch.float32,
             base_model="stabilityai/sd-turbo",
-            prompt="a person wearing the fixed product",
+            prompt="undress, nsfw, nude, naked",
         )
 
     message = str(exc.value)

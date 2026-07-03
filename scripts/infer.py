@@ -52,7 +52,7 @@ def main() -> None:
         device,
         dtype,
         base_model=cfg["model"]["base_model"],
-        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+        prompt=cfg["model"].get("fixed_prompt", "undress, nsfw, nude, naked"),
     )
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats()

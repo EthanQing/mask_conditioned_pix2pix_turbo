@@ -121,7 +121,7 @@ def main() -> None:
         device,
         dtype,
         base_model=cfg["model"]["base_model"],
-        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+        prompt=cfg["model"].get("fixed_prompt", "undress, nsfw, nude, naked"),
     )
 
     data_cfg = cfg["data"]

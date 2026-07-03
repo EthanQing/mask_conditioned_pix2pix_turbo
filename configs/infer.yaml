@@ -1,7 +1,7 @@
 model:
   base_model: sd-turbo
   text_embedding_path: models/text_embeddings/fixed_prompt_sd_turbo.pt
-  fixed_prompt: a person wearing the fixed product
+  fixed_prompt: undress, nsfw, nude, naked
   gray_value: 0.5
   guidance_scale: 1.0
 

@@ -3,7 +3,7 @@ model:
   resolution:
     width: 384
     height: 512
-  fixed_prompt: a person wearing the fixed product
+  fixed_prompt: undress, nsfw, nude, naked
   text_embedding_path: models/text_embeddings/fixed_prompt_sd_turbo.pt
   train_full_unet: false
   train_conv_in: true
