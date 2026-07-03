@@ -116,6 +116,13 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     dtype = torch.float16 if cfg["training"]["mixed_precision"] == "fp16" and device.type == "cuda" else torch.float32
     LOGGER.info("Using device=%s dtype=%s", device, dtype)
+    text_embedding = load_text_embedding(
+        cfg["model"]["text_embedding_path"],
+        device,
+        dtype,
+        base_model=cfg["model"]["base_model"],
+        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+    )
 
     data_cfg = cfg["data"]
     res = cfg["model"]["resolution"]
@@ -159,7 +166,6 @@ def main() -> None:
     model.train()
     model.vae.eval()
 
-    text_embedding = load_text_embedding(cfg["model"]["text_embedding_path"], device, dtype)
     optimizer = make_optimizer(trainable_params, cfg["training"])
     scaler = torch.amp.GradScaler("cuda", enabled=(dtype == torch.float16 and device.type == "cuda"))
     lpips_weight = float(cfg["loss"].get("lpips_weight", 0.0))

@@ -47,7 +47,13 @@ def main() -> None:
     model.enable_memory_efficient_attention(bool(cfg.get("enable_xformers", True)))
     if cfg.get("enable_torch_compile", False):
         model.unet = torch.compile(model.unet)
-    text_embedding = load_text_embedding(cfg["model"]["text_embedding_path"], device, dtype)
+    text_embedding = load_text_embedding(
+        cfg["model"]["text_embedding_path"],
+        device,
+        dtype,
+        base_model=cfg["model"]["base_model"],
+        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+    )
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats()
     with torch.no_grad(), torch.amp.autocast("cuda", enabled=(dtype == torch.float16 and device.type == "cuda")):

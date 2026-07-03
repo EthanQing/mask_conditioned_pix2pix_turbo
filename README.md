@@ -44,7 +44,7 @@ No pretrained weights are committed to git; Hugging Face cache/local model cache
 Download and inspect the base model before training:
 
 ```bash
-python scripts/download_base_model.py \
+uv run python -m scripts.download_base_model \
   --repo-id stabilityai/sd-turbo \
   --metadata-output outputs/model_metadata/sd_turbo.json
 ```
@@ -52,19 +52,19 @@ python scripts/download_base_model.py \
 Split left/right stitched pair images:
 
 ```bash
-python scripts/split_pairs.py --input original_pairs --dataset-root dataset --split train --separator-width 0
+uv run python -m scripts.split_pairs --input original_pairs --dataset-root dataset --split train --separator-width 0
 ```
 
 Build metadata:
 
 ```bash
-python scripts/build_metadata.py --root dataset --output dataset/metadata.csv
+uv run python -m scripts.build_metadata --root dataset --output dataset/metadata.csv
 ```
 
 Export the fixed text embedding once:
 
 ```bash
-python scripts/export_text_embedding.py \
+uv run python -m scripts.export_text_embedding \
   --base-model stabilityai/sd-turbo \
   --prompt "a person wearing the fixed product" \
   --output models/text_embeddings/fixed_prompt_sd_turbo.pt
@@ -75,15 +75,15 @@ If the model is gated or your environment needs authentication, set `HF_TOKEN` o
 ## Training
 
 ```bash
-python scripts/train.py --config configs/train.yaml
+uv run python -m scripts.train --config configs/train.yaml
 ```
 
-`training.max_steps` counts optimizer updates, not micro-batches. With the default batch size `1` and gradient accumulation `4`, each step consumes four samples.
+`training.max_steps` counts optimizer updates, not micro-batches. With the default batch size `1` and gradient accumulation `8`, each step consumes eight samples.
 
 Resume:
 
 ```bash
-python scripts/train.py --config configs/train.yaml
+uv run python -m scripts.train --config configs/train.yaml
 ```
 
 Set `training.resume_from` in `configs/train.yaml` to a checkpoint directory such as `checkpoints/step_00001000`.
@@ -91,7 +91,7 @@ Set `training.resume_from` in `configs/train.yaml` to a checkpoint directory suc
 Run validation visualizations without training:
 
 ```bash
-python scripts/validate.py \
+uv run python -m scripts.validate \
   --config configs/train.yaml \
   --checkpoint checkpoints/last \
   --split val \
@@ -101,7 +101,7 @@ python scripts/validate.py \
 ## Inference
 
 ```bash
-python scripts/infer.py \
+uv run python -m scripts.infer \
   --config configs/infer.yaml \
   --checkpoint checkpoints/last \
   --source path/to/source.jpg \
@@ -114,7 +114,7 @@ Outputs written next to `--output`: `raw_pred.png`, `final.png`, `soft_mask.png`
 ## VRAM Benchmark
 
 ```bash
-python scripts/benchmark_vram.py --config configs/infer.yaml --checkpoint checkpoints/last
+uv run python -m scripts.benchmark_vram --config configs/infer.yaml --checkpoint checkpoints/last
 ```
 
 The script reports GPU name, PyTorch/CUDA versions, resolution, latency, peak VRAM, xFormers, torch.compile, VAE slicing, and VAE tiling.

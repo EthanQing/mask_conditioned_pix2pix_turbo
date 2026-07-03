@@ -32,7 +32,13 @@ def main() -> None:
     model.enable_memory_efficient_attention(bool(cfg.get("enable_xformers", True)))
     if cfg.get("enable_torch_compile", False):
         model.unet = torch.compile(model.unet)
-    text_embedding = load_text_embedding(cfg["model"]["text_embedding_path"], device, dtype)
+    text_embedding = load_text_embedding(
+        cfg["model"]["text_embedding_path"],
+        device,
+        dtype,
+        base_model=cfg["model"]["base_model"],
+        prompt=cfg["model"].get("fixed_prompt", "a person wearing the fixed product"),
+    )
     source = torch.rand(1, 3, cfg["height"], cfg["width"], device=device, dtype=dtype)
     mask = torch.zeros(1, 1, cfg["height"], cfg["width"], device=device, dtype=dtype)
     mask[:, :, cfg["height"] // 4 : cfg["height"] * 3 // 4, cfg["width"] // 4 : cfg["width"] * 3 // 4] = 1
