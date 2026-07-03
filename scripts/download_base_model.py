@@ -27,6 +27,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-id", default="stabilityai/sd-turbo")
     parser.add_argument("--cache-dir", type=Path, default=None)
+    parser.add_argument("--local-dir", type=Path, default=Path("sd-turbo"))
     parser.add_argument("--hf-token", default=None)
     parser.add_argument("--allow-pattern", action="append", default=["*.json", "*.txt", "*.md", "*.safetensors", "*.bin", "scheduler/*", "unet/*", "vae/*", "tokenizer/*", "text_encoder/*"])
     parser.add_argument("--metadata-output", type=Path, default=Path("outputs/model_metadata/sd_turbo.json"))
@@ -40,6 +41,7 @@ def main() -> None:
     local_dir = snapshot_download(
         repo_id=args.repo_id,
         cache_dir=args.cache_dir,
+        local_dir=args.local_dir,
         token=args.hf_token,
         allow_patterns=args.allow_pattern,
     )
